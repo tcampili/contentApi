@@ -1,13 +1,23 @@
 package com.example.demo.model;
 
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class Category {
 
+    @Id
     private String id;
+    private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category motherCategory;
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Category> sonsCategory;
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Content> contents;
+
+    public Category() {
+    }
 
     public Category(String id, Category motherCategory, Set<Category> sonsCategory, Set<Content> contents) {
         this.id = id;
@@ -22,6 +32,14 @@ public class Category {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Category getMotherCategory() {
